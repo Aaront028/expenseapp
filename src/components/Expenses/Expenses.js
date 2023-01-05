@@ -8,9 +8,13 @@ function Expenses(props) {
   const [filterData, setFilterData] = useState('2021')
   function onSaveFilterDataHandler(enteredFilterData) {
     setFilterData(enteredFilterData)
-    console.log('Filta Data:', filterData)
-    console.log(enteredFilterData)
   }
+
+  const filteredExpenses = props.item.filter((expense) => {
+    return expense.date.getFullYear().toString() === filterData
+    // console.log(expense.date.getFullYear())
+  })
+  console.log(filteredExpenses)
 
   return (
     <div>
@@ -19,7 +23,7 @@ function Expenses(props) {
           selected={filterData}
           onSaveFilterData={onSaveFilterDataHandler}
         />
-        {props.item.map((expense) => (
+        {filteredExpenses.map((expense) => (
           <ExpenseItem
             key={expense.id}
             title={expense.title}
